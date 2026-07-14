@@ -1,0 +1,6 @@
+{
+  "name": "Friend Plus Logistics",
+  "description": "🚚 Advanced Logistics Management System for orders, couriers, and suppliers tracking.",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

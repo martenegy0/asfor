@@ -1,0 +1,421 @@
+{
+  "users": [
+    {
+      "name": "عصفور",
+      "role": "مدير",
+      "pass": "14014",
+      "active": "نعم",
+      "email": "asfour@friendplus.com",
+      "perms": "كاملة"
+    },
+    {
+      "name": "ابو ياسين",
+      "role": "مدير",
+      "pass": "361991",
+      "active": "نعم",
+      "email": "abuyassin@friendplus.com",
+      "perms": "كاملة"
+    },
+    {
+      "name": "ابو خديجه",
+      "role": "مشرف",
+      "pass": "14014",
+      "active": "نعم",
+      "email": "abukhadija@friendplus.com",
+      "perms": "توزيع ومتابعة"
+    },
+    {
+      "name": "أحمد المرتجعات",
+      "role": "مسؤول مرتجعات",
+      "pass": "222222",
+      "active": "نعم",
+      "email": "returns@friendplus.com",
+      "perms": "متابعة المرتجعات"
+    },
+    {
+      "name": "المحاسب أحمد",
+      "role": "محاسب",
+      "pass": "111111",
+      "active": "نعم",
+      "email": "accounting@friendplus.com",
+      "perms": "خزنة وحسابات وتقارير مالية"
+    },
+    {
+      "name": "محمد حمدى",
+      "role": "مندوب",
+      "pass": "500500",
+      "active": "نعم",
+      "email": "mohamed@friendplus.com",
+      "perms": "أوردرات المندوب وتحديث الحالات"
+    },
+    {
+      "name": "زياد",
+      "role": "مندوب",
+      "pass": "500500",
+      "active": "نعم",
+      "email": "ziad@friendplus.com",
+      "perms": "أوردرات المندوب وتحديث الحالات"
+    },
+    {
+      "name": "محل الأناقة",
+      "role": "مورد",
+      "pass": "333333",
+      "active": "نعم",
+      "email": "elegance@friendplus.com",
+      "perms": "إضافة أوردرات ورفع كشوفات"
+    },
+    {
+      "name": "صفوت العمليات",
+      "role": "موظف عمليات",
+      "pass": "444444",
+      "active": "نعم",
+      "email": "safwat@friendplus.com",
+      "perms": "متابعة حالات فقط"
+    }
+  ],
+  "couriers": [
+    {
+      "name": "محمد حمدى",
+      "phone": "01112345678",
+      "commission": 25,
+      "salary": 3000,
+      "region": "القاهرة"
+    },
+    {
+      "name": "زياد",
+      "phone": "01212345678",
+      "commission": 25,
+      "salary": 3000,
+      "region": "الجيزة"
+    }
+  ],
+  "suppliers": [
+    {
+      "name": "محل الأناقة",
+      "phone": "01055556666",
+      "price": 65,
+      "notes": "ملابس وموضة"
+    },
+    {
+      "name": "إلكترونيات السلام",
+      "phone": "01544443333",
+      "price": 60,
+      "notes": "أجهزة إلكترونية وإكسسوارات"
+    }
+  ],
+  "orders": [
+    {
+      "tracking": "FP-1001-26",
+      "createdAt": "2026-06-10 10:00",
+      "updatedAt": "2026-06-12 12:00",
+      "supplier": "محل الأناقة",
+      "customer": "محمود رأفت حسن",
+      "phone": "01011223344",
+      "phone2": "01155667788",
+      "gov": "الدقهلية",
+      "region": "المنصورة",
+      "address": "المنصورة - ش الأتوبيس الجديد أمام مسجد التقوى",
+      "prodPrice": 200,
+      "shipPrice": 60,
+      "totalCOD": 260,
+      "status": "تم التسليم",
+      "courier": "محمد حمدى",
+      "notes": "يرجى رن جرس مرتين والاتصال قبل الوصول بنصف ساعة",
+      "returnQueueStatus": ""
+    },
+    {
+      "tracking": "FP-1002-26",
+      "createdAt": "2026-06-11 10:15",
+      "updatedAt": "2026-06-12 11:30",
+      "supplier": "محل الأناقة",
+      "customer": "فاطمة أحمد علي",
+      "phone": "01233445566",
+      "phone2": "",
+      "gov": "القاهرة",
+      "region": "مصر الجديدة",
+      "address": "مصر الجديدة - ش النزهة عمارة 14 الدور 3 شقة 6",
+      "prodPrice": 300,
+      "shipPrice": 40,
+      "totalCOD": 340,
+      "status": "تم التسليم",
+      "courier": "محمد حمدى",
+      "notes": "تسليم سريع اليوم ضروري جداً",
+      "returnQueueStatus": ""
+    },
+    {
+      "tracking": "FP-1003-26",
+      "createdAt": "2026-06-12 09:30",
+      "updatedAt": "2026-06-12 14:15",
+      "supplier": "إلكترونيات السلام",
+      "customer": "محمد صلاح الصاوي",
+      "phone": "01511223344",
+      "phone2": "01099887766",
+      "gov": "الجيزة",
+      "region": "فيصل",
+      "address": "فيصل - ش العشرين برج الياسمين شقة 10",
+      "prodPrice": 150,
+      "shipPrice": 40,
+      "totalCOD": 190,
+      "status": "خارج مع المندوب",
+      "courier": "زياد",
+      "notes": "الدفع كاش بعد المعاينة",
+      "returnQueueStatus": ""
+    },
+    {
+      "tracking": "FP-1004-26",
+      "createdAt": "2026-06-12 10:00",
+      "updatedAt": "2026-06-12 10:00",
+      "supplier": "محل الأناقة",
+      "customer": "سامح عبد السلام طه",
+      "phone": "01088776655",
+      "phone2": "",
+      "gov": "الإسكندرية",
+      "region": "سموحة",
+      "address": "سموحة - ش فوزي معاذ بجوار مستشفى أندلسية",
+      "prodPrice": 450,
+      "shipPrice": 65,
+      "totalCOD": 515,
+      "status": "جديد",
+      "courier": "",
+      "notes": "",
+      "returnQueueStatus": ""
+    },
+    {
+      "tracking": "FP-1005-26",
+      "createdAt": "2026-06-12 10:30",
+      "updatedAt": "2026-06-12 15:00",
+      "supplier": "محل الأناقة",
+      "customer": "منى زكي الشريف",
+      "phone": "01155443322",
+      "phone2": "",
+      "gov": "القاهرة",
+      "region": "شبرا",
+      "address": "شبرا مصر - ش أحمد حلمي أمام مدرسة التوفيقية",
+      "prodPrice": 180,
+      "shipPrice": 35,
+      "totalCOD": 215,
+      "status": "مؤجل",
+      "courier": "محمد حمدى",
+      "notes": "أجل ليوم الأحد القادم حسب رغبة العميل",
+      "returnQueueStatus": ""
+    },
+    {
+      "tracking": "FP-1006-26",
+      "createdAt": "2026-06-12 10:45",
+      "updatedAt": "2026-06-12 15:30",
+      "supplier": "إلكترونيات السلام",
+      "customer": "إبراهيم خالد عمار",
+      "phone": "01533442211",
+      "phone2": "",
+      "gov": "القاهرة",
+      "region": "حلوان",
+      "address": "حلوان - ش منصور بجوار محطة حلوان",
+      "prodPrice": 130,
+      "shipPrice": 45,
+      "totalCOD": 175,
+      "status": "لا يوجد رد",
+      "courier": "محمد حمدى",
+      "notes": "تم الاتصال 3 مرات مغلق أو كنسل",
+      "returnQueueStatus": ""
+    },
+    {
+      "tracking": "FP-1007-26",
+      "createdAt": "2026-06-12 11:00",
+      "updatedAt": "2026-06-12 16:30",
+      "supplier": "محل الأناقة",
+      "customer": "يحيى عبد الرحمن",
+      "phone": "01288990011",
+      "phone2": "",
+      "gov": "الجيزة",
+      "region": "الدقي",
+      "address": "الدقي - ش التحرير برج النور خلف البنك الأهلي",
+      "prodPrice": 500,
+      "shipPrice": 40,
+      "totalCOD": 540,
+      "status": "تم التسليم",
+      "courier": "زياد",
+      "notes": "شحن سريع في الدقي",
+      "returnQueueStatus": ""
+    },
+    {
+      "tracking": "FP-1008-26",
+      "createdAt": "2026-06-12 11:15",
+      "updatedAt": "2026-06-12 16:30",
+      "supplier": "محل الأناقة",
+      "customer": "كريم ممدوح شحاتة",
+      "phone": "01055664422",
+      "phone2": "",
+      "gov": "الغربية",
+      "region": "طنطا",
+      "address": "طنطا - ش البحر أمام كلية الصيدلة",
+      "prodPrice": 400,
+      "shipPrice": 60,
+      "totalCOD": 460,
+      "status": "مرتجع",
+      "courier": "زياد",
+      "notes": "رفض الاستلام لعدم مطابقة المقاس",
+      "returnQueueStatus": "جاهز للتسليم للمورد"
+    },
+    {
+      "tracking": "FP-1009-26",
+      "createdAt": "2026-06-12 11:30",
+      "updatedAt": "2026-06-12 17:00",
+      "supplier": "محل الأناقة",
+      "customer": "رشا جمال السيد",
+      "phone": "01122334455",
+      "phone2": "",
+      "gov": "الدقهلية",
+      "region": "ميت غمر",
+      "address": "ميت غمر - بجوار إدارة التعليم الجديدة",
+      "prodPrice": 320,
+      "shipPrice": 60,
+      "totalCOD": 380,
+      "status": "مرتجع",
+      "courier": "محمد حمدى",
+      "notes": "رفض معيب أو مكسور",
+      "returnQueueStatus": "مرتجع تم تسليمه للمورد"
+    },
+    {
+      "tracking": "FP-1010-26",
+      "createdAt": "2026-06-12 11:45",
+      "updatedAt": "2026-06-12 11:45",
+      "supplier": "محل الأناقة",
+      "customer": "عماد فتحي السويسي",
+      "phone": "01555667788",
+      "phone2": "",
+      "gov": "القليوبية",
+      "region": "بنها",
+      "address": "بنها - الفلل بجوار كورنيش بنها المائي",
+      "prodPrice": 600,
+      "shipPrice": 50,
+      "totalCOD": 650,
+      "status": "جديد",
+      "courier": "",
+      "notes": "الدفع كاش نقدي",
+      "returnQueueStatus": ""
+    }
+  ],
+  "expenses": [
+    {
+      "date": "2026-06-10 09:00",
+      "cat": "إيجار",
+      "desc": "إيجار مكتب الفرع الرئيسي",
+      "amount": 1500,
+      "by": "المحاسب أحمد"
+    }
+  ],
+  "cashbox": [
+    {
+      "date": "2026-06-10 08:00",
+      "desc": "رأس مال ابتدائي لتسوية الخزنة",
+      "type": "وارد",
+      "amount": 10000,
+      "ref": "CAP-001",
+      "addedBy": "المحاسب أحمد"
+    },
+    {
+      "date": "2026-06-10 12:30",
+      "desc": "استلام كشف تحصيل يومي من المندوب محمد حمدى",
+      "type": "استلام عهدة مندوب",
+      "amount": 1000,
+      "ref": "محمد حمدى",
+      "addedBy": "المحاسب أحمد"
+    },
+    {
+      "date": "2026-06-11 14:00",
+      "desc": "توريد تقفيل عهد المندوب زياد",
+      "type": "استلام عهدة مندوب",
+      "amount": 500,
+      "ref": "زياد",
+      "addedBy": "المحاسب أحمد"
+    }
+  ],
+  "statusHistory": [
+    {
+      "tracking": "FP-1001-26",
+      "oldStatus": "جديد",
+      "newStatus": "تم التسليم",
+      "updatedBy": "محمد حمدى",
+      "dateTime": "2026-06-10 12:00"
+    },
+    {
+      "tracking": "FP-1002-26",
+      "oldStatus": "جديد",
+      "newStatus": "مرتجع",
+      "updatedBy": "زياد",
+      "dateTime": "2026-06-10 12:30"
+    },
+    {
+      "tracking": "FP-1005-26",
+      "oldStatus": "جديد",
+      "newStatus": "مرتجع",
+      "updatedBy": "محمد حمدى",
+      "dateTime": "2026-06-10 11:45"
+    }
+  ],
+  "supplierLedger": [
+    {
+      "supplier": "محل الأناقة",
+      "date": "2026-06-10 10:00",
+      "type": "أوردر مستلم",
+      "tracking": "FP-1001-26",
+      "amount": 200,
+      "desc": "أوردر مستلم قيمته 200 ج.م"
+    },
+    {
+      "supplier": "محل الأناقة",
+      "date": "2026-06-11 10:15",
+      "type": "أوردر مستلم",
+      "tracking": "FP-1002-26",
+      "amount": 300,
+      "desc": "أوردر مستلم قيمته 300 ج.م"
+    },
+    {
+      "supplier": "إلكترونيات السلام",
+      "date": "2026-06-12 09:30",
+      "type": "أوردر مستلم",
+      "tracking": "FP-1003-26",
+      "amount": 150,
+      "desc": "أوردر مستلم قيمته 150 ج.م"
+    },
+    {
+      "supplier": "محل الأناقة",
+      "date": "2026-06-12 10:00",
+      "type": "أوردر مستلم",
+      "tracking": "FP-1007-26",
+      "amount": 500,
+      "desc": "أوردر مستلم قيمته 500 ج.م"
+    },
+    {
+      "supplier": "محل الأناقة",
+      "date": "2026-06-12 11:00",
+      "type": "أوردر مستلم",
+      "tracking": "FP-1011-26",
+      "amount": 230,
+      "desc": "أوردر مستلم قيمته 230 ج.م"
+    }
+  ],
+  "courierLedger": [
+    {
+      "courier": "محمد حمدى",
+      "date": "2026-06-10 12:00",
+      "type": "تسليم",
+      "tracking": "FP-1001-26",
+      "amount": 25,
+      "desc": "عمولة تسليم الأوردر FP-1001-26"
+    },
+    {
+      "courier": "زياد",
+      "date": "2026-06-12 12:30",
+      "type": "تحصيل",
+      "tracking": "FP-1007-26",
+      "amount": 25,
+      "desc": "عمولة تسليم الأوردر FP-1007-26"
+    }
+  ],
+  "settings": {
+    "COUNTER": 1005,
+    "COMPANY": "فريند بلس",
+    "VERSION": "5.1"
+  }
+}
