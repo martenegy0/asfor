@@ -78,20 +78,7 @@ CREATE TABLE IF NOT EXISTS shipments (
     courier_name TEXT REFERENCES users(username) ON UPDATE CASCADE ON DELETE SET NULL,
     
     -- Operational Statuses Check
-    status TEXT NOT NULL CHECK (status IN (
-        'جديد', 
-        'جاهز للاستلام', 
-        'مع المندوب', 
-        'قيد التنفيذ', 
-        'تم التسليم', 
-        'تسليم جزئي', 
-        'مؤجل', 
-        'مرتجع بالمستودع', 
-        'مرتجع تم تسليمه للمورد', 
-        'مرتجع والعميل دفع الشحن',
-        'مؤرشف',
-        'لا يوجد رد'
-    )),
+    status TEXT NOT NULL,
     
     -- Returns Queue & Delayed controls
     notes TEXT,
@@ -103,7 +90,7 @@ CREATE TABLE IF NOT EXISTS shipments (
     commission NUMERIC DEFAULT 0.00,  -- Courier commission
     vendor_net NUMERIC DEFAULT 0.00,  -- Net wallet addition for merchant
     
-    return_shipping_type TEXT DEFAULT '' CHECK (return_shipping_type IN ('paid', 'unpaid', '')),
+    return_shipping_type TEXT DEFAULT '',
     return_queue_status TEXT DEFAULT '',
     return_queue_agent TEXT DEFAULT '',
     

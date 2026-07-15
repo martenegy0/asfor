@@ -431,6 +431,50 @@ function getSeededOrders(): any[] {
 
 let cachedDB: any = null;
 
+async function syncDbToSupabase(db: any) {
+  try {
+    if (!db) return;
+    const { mapUserToSupabase, mapVendorToSupabase, mapShipmentToSupabase, mapLedgerToSupabase, mapExpenseToSupabase } = await import("./supabase-sync.js");
+    const { supabase } = await import("./supabase-client.js");
+
+    // 1. Sync users
+    if (db.users && db.users.length > 0) {
+      const mapped = db.users.map(mapUserToSupabase);
+      await supabase.from("users").upsert(mapped, { onConflict: "username" });
+    }
+
+    // 2. Sync suppliers (vendors)
+    if (db.suppliers && db.suppliers.length > 0) {
+      const mapped = db.suppliers.map(mapVendorToSupabase);
+      await supabase.from("vendors").upsert(mapped, { onConflict: "name" });
+    }
+
+    // 3. Sync orders (shipments)
+    if (db.orders && db.orders.length > 0) {
+      const CHUNK = 100;
+      for (let i = 0; i < db.orders.length; i += CHUNK) {
+        const chunk = db.orders.slice(i, i + CHUNK);
+        const mapped = chunk.map(mapShipmentToSupabase);
+        await supabase.from("shipments").upsert(mapped, { onConflict: "tracking" });
+      }
+    }
+
+    // 4. Sync supplier ledger
+    if (db.supplierLedger && db.supplierLedger.length > 0) {
+      const mapped = db.supplierLedger.map(mapLedgerToSupabase);
+      await supabase.from("supplier_ledger").upsert(mapped);
+    }
+
+    // 5. Sync expenses
+    if (db.expenses && db.expenses.length > 0) {
+      const mapped = db.expenses.map(mapExpenseToSupabase);
+      await supabase.from("expenses").upsert(mapped);
+    }
+  } catch (syncErr: any) {
+    console.error("⚠️ Background Supabase sync failed:", syncErr.message || syncErr);
+  }
+}
+
 function readDB(): any {
   if (cachedDB) {
     return cachedDB;
@@ -557,6 +601,8 @@ function writeDB(data: any): void {
   cachedDB = data;
   try {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), "utf-8");
+    // Background asynchronously sync with Supabase
+    syncDbToSupabase(data);
   } catch (error) {
     console.error("Error writing database:", error);
   }
@@ -1653,7 +1699,7 @@ interface CacheEntry {
 const READ_CACHE = new Map<string, CacheEntry>();
 const ACTIVE_FETCHES = new Map<string, Promise<any>>();
 const CACHE_TTL_MS = 10000; // 10 seconds cache
-let isGoogleScriptHealthy = true;
+let isGoogleScriptHealthy = false; // Transitioned fully to Supabase Client (v190)
 
 function getCacheKey(payload: any): string {
   const keyObj = {
@@ -1870,6 +1916,25 @@ async function executeProxyRequest(
 // ─────────────────────────────────────────────────────────────
 app.post("/api", async (req: Request, res: Response) => {
   try {
+    // Lazy-load database from Supabase if cache is missing (crucial for Vercel/Serverless cold starts)
+    if (!cachedDB) {
+      console.log("🔄 Database cache empty. Lazy loading from Supabase PostgreSQL...");
+      try {
+        const { loadDbFromSupabase } = await import("./supabase-sync.js");
+        const db = await loadDbFromSupabase();
+        if (db) {
+          cachedDB = db;
+          console.log("✅ Database cache successfully populated from Supabase on demand!");
+        } else {
+          console.warn("⚠️ Supabase pre-population returned null. Falling back to local database.");
+          readDB();
+        }
+      } catch (err: any) {
+        console.error("⚠️ Failed to lazy load from Supabase:", err.message || err);
+        readDB();
+      }
+    }
+
     const d = req.body;
     if (!d || !d.action) {
       return err(res, "Missing action parameter");
@@ -7594,6 +7659,20 @@ app.post("/api", async (req: Request, res: Response) => {
 // MIDDLEWARES & DEV SERVERS INGRESS
 // ─────────────────────────────────────────────────────────────
 async function startServer() {
+  console.log("🔄 Connecting to Supabase database...");
+  try {
+    const { loadDbFromSupabase } = await import("./supabase-sync.js");
+    const db = await loadDbFromSupabase();
+    if (db) {
+      cachedDB = db;
+      console.log("✅ Successfully pre-populated cache from Supabase PostgreSQL!");
+    } else {
+      console.warn("⚠️ Supabase pre-population returned null. Using local db.json fallback.");
+    }
+  } catch (err: any) {
+    console.error("⚠️ Failed to preload from Supabase on start, falling back to local storage:", err.message || err);
+  }
+
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
