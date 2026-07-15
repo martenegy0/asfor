@@ -4,6 +4,18 @@
 // ====================================================================
 
 import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+import path from "path";
+
+// Load environment variables from .env.local and .env
+if (dotenv && typeof dotenv.config === "function") {
+  try {
+    dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
+    dotenv.config({ path: path.resolve(process.cwd(), ".env") });
+  } catch (e) {
+    // Silent catch if process or path is not available in frontend bundlers
+  }
+}
 
 // 1. Environment Variable Structure (Plugged securely into Vercel or local .env)
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL || "";
@@ -11,17 +23,30 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn(
-    "⚠️ Supabase URL or Anon Key is missing! Ensure VITE_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_URL is configured."
+    "⚠️ Supabase URL or Anon Key is missing! Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your .env.local file."
   );
 }
 
-// 2. Instantiate the Supabase Client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-  },
-});
+// 2. Instantiate the Supabase Client safely using a Proxy fallback
+export const supabase = (supabaseUrl && supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+      },
+    })
+  : new Proxy({} as any, {
+      get(target, prop) {
+        if (prop === "from" || prop === "auth" || prop === "storage") {
+          return () => {
+            throw new Error(
+              "❌ خطأ: لم يتم تهيئة عميل سوبابيس بشكل صحيح! يرجى إضافة NEXT_PUBLIC_SUPABASE_URL و NEXT_PUBLIC_SUPABASE_ANON_KEY في ملف .env.local الخاص بك."
+            );
+          };
+        }
+        return undefined;
+      }
+    });
 
 // ====================================================================
 // 3. Complete Database Adapters to Replace Old Local/Google Sheets API

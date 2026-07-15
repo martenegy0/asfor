@@ -7,15 +7,38 @@
 import fs from "fs";
 import path from "path";
 import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+
+// Load environment variables from .env.local and .env
+dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
+dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 // Load configuration
 const DB_PATH = path.join(process.cwd(), "src", "db.json");
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL || "";
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY || "";
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || "";
 const GOOGLE_SCRIPT_URL = (process.env.GOOGLE_SCRIPT_URL || "").trim();
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-  console.warn("⚠️ Supabase credentials missing! Ensure environment variables are loaded.");
+  console.error(`
+======================================================================
+❌ خطأ هام: لم يتم العثور على بيانات الاتصال بـ Supabase!
+⚠️ Error: Supabase credentials are missing.
+
+يرجى اتباع الخطوات التالية لحل المشكلة:
+1. قم بإنشاء ملف باسم '.env.local' في المجلد الرئيسي للمشروع (بجانب package.json).
+2. أضف المتغيرات التالية داخل الملف مع استبدال القيم ببيانات مشروعك من Supabase:
+
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+VITE_SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+SUPABASE_ANON_KEY=your_anon_key_here
+VITE_SUPABASE_ANON_KEY=your_anon_key_here
+
+ثم قم بتشغيل الأمر مرة أخرى!
+======================================================================
+  `);
+  process.exit(1);
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
